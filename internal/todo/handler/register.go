@@ -11,7 +11,7 @@ import (
 func RegisterRoutes(router *httprouter.Router) {
 
 	router.PanicHandler = func(w http.ResponseWriter, r *http.Request, msg interface{}) {
-		log.Println("Panic: msg")
+		log.Printf("Panic: %s", msg)
 		SendResponse(w, Response{
 			Message:    "Internal Server Error",
 			StatusCode: http.StatusInternalServerError,

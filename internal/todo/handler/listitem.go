@@ -170,6 +170,7 @@ func DeleteListItem(w http.ResponseWriter, r *http.Request, params httprouter.Pa
 
 	copy(todoList.Items[itemIndex:], todoList.Items[itemIndex+1:])
 	todoList.Items = todoList.Items[:len(todoList.Items)-1]
+
 	TodoList.Store(int32(id), todoList)
 	SendResponse(w, Response{
 		StatusCode: http.StatusOK,
@@ -235,14 +236,14 @@ func GetListItem(w http.ResponseWriter, r *http.Request, params httprouter.Param
 		return
 	}
 
-	var item model.ListItem
+	var data interface{}
 	if len(todoList.Items) > 0 {
-		item = todoList.Items[itemIndex]
+		data = todoList.Items[itemIndex]
 	}
 
 	SendResponse(w, Response{
 		StatusCode: http.StatusOK,
 		Message:    "item has been retrived.",
-		Data:       item,
+		Data:       data,
 	})
 }
